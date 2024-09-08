@@ -23,7 +23,6 @@ class CustomTextField extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 10),
-            // color: Colors.amber,
             child: Text(
               labelText,
               style: TextStyle(
@@ -35,17 +34,6 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           Container(
-            // decoration: ShapeDecoration(
-            //   color: Colors.white,
-            //   shape: RoundedRectangleBorder(
-            //     side: const BorderSide(
-            //       width: 1,
-            //       color: Color(0xFFEBEBEB),
-            //     ),
-            //     borderRadius: BorderRadius.circular(10),
-            //   ),
-            // ),
-            // padding: EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -57,7 +45,7 @@ class CustomTextField extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.white,
               ),
-              initialValue: initialValue ?? "",
+              initialValue: initialValue,
               obscureText: obscureText,
               validator: validator,
               onSaved: onSaved,

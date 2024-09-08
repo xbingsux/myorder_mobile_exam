@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myorder_mobile_exam/components/custom_card.dart';
 import 'package:myorder_mobile_exam/profile/profile_detail.dart';
-import 'controller.dart'; // Import HomeController
+import 'controller.dart';
 
 class HomePage extends StatelessWidget {
-  final HomeController controller =
-      Get.put(HomeController()); // สร้าง instance ของ HomeController
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +14,12 @@ class HomePage extends StatelessWidget {
         title: Text('Home Page'),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh), // ใช้ไอคอนรีโหลด
-            onPressed: controller.updateData, // เมื่อกดปุ่มจะอัปเดตข้อมูล
+            icon: Icon(Icons.refresh),
+            onPressed: controller.updateData,
           ),
         ],
       ),
       body: Obx(() {
-        // return CustomCard();
-        // ใช้ Obx เพื่ออัปเดตหน้าจอเมื่อข้อมูลเปลี่ยนแปลง
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: ListView.builder(
@@ -33,11 +30,8 @@ class HomePage extends StatelessWidget {
                 data: card,
                 onDelete: () => controller.deleteItem(card['id'].toString()),
                 onUpdate: () async {
-                  // รอผลลัพธ์จากการอัปเดตข้อมูลในหน้า ProfileScreen
                   final result = await Get.to(ProfileScreen(),
                       arguments: card['id'].toString());
-
-                  // ถ้าผลลัพธ์เป็น true ให้รีเฟรชข้อมูลใน HomePage
                   if (result == true) {
                     controller.updateData();
                   }
@@ -53,7 +47,7 @@ class HomePage extends StatelessWidget {
           if (result == true) {
             controller.updateData();
           }
-        }, // กดปุ่มเพื่ออัปเดตข้อมูล
+        },
         child: Icon(Icons.add),
       ),
     );

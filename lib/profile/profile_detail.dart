@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myorder_mobile_exam/components/custom_avartar.dart';
+import 'package:myorder_mobile_exam/components/custom_dropdown.dart';
 import 'package:myorder_mobile_exam/profile/controller.dart';
 import 'package:myorder_mobile_exam/components/custom_text_field.dart';
 
@@ -11,10 +12,10 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final String? profileId = Get.arguments as String?;
     if (profileId != null) {
-      controller.profileId = profileId; // เก็บค่า id ใน controller
-      controller.getProfileData(profileId); // ดึงข้อมูลจาก API
+      controller.profileId = profileId;
+      controller.getProfileData(profileId);
     } else {
-      controller.resetFields(); // ถ้าไม่มี id รีเซ็ตฟอร์ม
+      controller.resetFields();
     }
 
     return Scaffold(
@@ -32,21 +33,19 @@ class ProfileScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.close), // ใช้ไอคอนรีโหลด
+            icon: Icon(Icons.close),
             color: Colors.black,
             onPressed: () {
               Get.back();
-            }, // เมื่อกดปุ่มจะอัปเดตข้อมูล
+            },
           ),
         ],
         centerTitle: true,
         elevation: 0,
       ),
       body: Obx(() {
-        // ตรวจสอบสถานะการโหลด
         if (controller.isLoading.value) {
-          return Center(
-              child: CircularProgressIndicator()); // แสดงสัญลักษณ์โหลด
+          return Center(child: CircularProgressIndicator());
         } else {
           return ListView(
             children: [
@@ -89,20 +88,18 @@ class ProfileScreen extends StatelessWidget {
                           validator: controller.validatePassword,
                           initialValue: controller.password.value,
                         ),
-                        // CustomDropdown(
-                        //   labelText: 'Gender',
-                        //   value: controller.gender.value,
-                        //   items: [
-                        //     {
-                        //       'M': 'Male',
-                        //       'F': 'Female',
-                        //       'N': 'Not Specified',
-                        //     }
-                        //   ],
-                        //   onChanged: (value) {
-                        //     controller.gender.value = value!;
-                        //   },
-                        // ),
+                        CustomDropdown(
+                          labelText: 'Gender',
+                          value: controller.gender.value,
+                          items: const [
+                            {'key': 'M', 'value': 'Male'},
+                            {'key': 'F', 'value': 'Female'},
+                            {'key': 'N', 'value': 'Not Specified'},
+                          ],
+                          onChanged: (value) {
+                            controller.gender.value = value!;
+                          },
+                        ),
                         myTitle('Address Details'),
                         CustomTextField(
                           labelText: 'Pincode',

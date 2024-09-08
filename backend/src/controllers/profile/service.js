@@ -1,6 +1,6 @@
 // import db from "../utils/db";
 
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client"); 
 
 const prisma = new PrismaClient();
 
@@ -28,6 +28,10 @@ const getProfiles = async () => {
       // where: {
       //   email: email,
       // },
+      orderBy: {
+        id: 'asc', 
+       
+      },
     });
 
     return profiles;
@@ -72,7 +76,9 @@ const upsertProfile = async (id, email, password, gender, pincode, addr, city, s
 
   try {
     if(!id){
-      user =findUserByEmail(email)
+      user =await  findUserByEmail(email)
+      console.log("User : "+user);
+      
       if(user != null){
         throw new Error('Email is already in use.');
       }

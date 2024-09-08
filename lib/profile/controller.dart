@@ -9,7 +9,7 @@ class ProfileController extends GetxController {
   final String baseUrl = dotenv.env['BASE_URL']!;
   var email = ''.obs;
   var password = ''.obs;
-  var gender = 'M'.obs;
+  var gender = 'N'.obs;
 
   var pincode = ''.obs;
   var addr = ''.obs;
@@ -54,9 +54,10 @@ class ProfileController extends GetxController {
   }
 
   void resetFields() {
+    profileId = null;
     email.value = '';
     password.value = '';
-    gender.value = 'Male';
+    gender.value = 'N';
     pincode.value = '';
     addr.value = '';
     city.value = '';
@@ -68,8 +69,6 @@ class ProfileController extends GetxController {
   }
 
   String? validateEmail(String? value) {
-    print("validateEmail called with: $value"); // ตรวจสอบค่า value ที่ส่งมา
-    print("validateEmail called type: " + value.runtimeType.toString());
     if (value == null || value.isEmpty) {
       return 'Please enter email';
     }
@@ -80,7 +79,6 @@ class ProfileController extends GetxController {
   }
 
   String? validatePassword(String? value) {
-    print(value.runtimeType.toString());
     if (value == "" || value == null || value.isEmpty) {
       return 'Please enter password';
     }
@@ -92,11 +90,11 @@ class ProfileController extends GetxController {
 
   Future<void> saveForm() async {
     if (formKey.currentState!.validate()) {
-      formKey.currentState!.save(); // บันทึกฟอร์ม
+      formKey.currentState!.save();
 
       final url = Uri.parse('$baseUrl/profiles');
       final profileData = {
-        'id': profileId, // ถ้ามี id จะเป็นการอัปเดต ถ้าไม่มีจะเป็นการสร้าง
+        'id': profileId,
         'email': email.value,
         'password': password.value,
         'gender': gender.value,
@@ -117,23 +115,17 @@ class ProfileController extends GetxController {
           body: json.encode(profileData),
         );
         if (response.statusCode == 201) {
-          // Get.offAll(HomePage());
           Get.back(result: true);
           Get.snackbar('Success', 'Profile saved successfully');
         } else {
-          // ตรวจสอบว่าการตอบกลับเป็น JSON หรือข้อความธรรมดา
           var errorMessage = 'Failed to save profile';
           try {
-            final errorData = json
-                .decode(response.body); // พยายามแปลง response body เป็น JSON
-            errorMessage = errorData['message'] ??
-                errorMessage; // ใช้ error message จาก response ถ้ามี
+            final errorData = json.decode(response.body);
+            errorMessage = errorData['message'] ?? errorMessage;
           } catch (e) {
-            errorMessage = response.body
-                .toString(); // ถ้าไม่สามารถแปลงเป็น JSON ได้ ใช้ body ที่เป็นข้อความดิบ
+            errorMessage = response.body.toString();
           }
 
-          // แสดงข้อความข้อผิดพลาดใน Snackbar
           Get.snackbar('Failed', errorMessage);
         }
       } catch (e) {

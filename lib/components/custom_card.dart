@@ -15,16 +15,15 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0), // เพิ่มการทำให้มุมโค้งมน
+        borderRadius: BorderRadius.circular(12.0),
       ),
-      // margin: EdgeInsets.all(10),
       child: ExpansionTile(
         title: Text(
           data['email'],
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          data['gender'] != null ? data['gender'].toString() : "Not Specified",
+          genderText(data['gender']),
         ),
         expandedAlignment: Alignment.topLeft,
         children: <Widget>[
@@ -50,30 +49,26 @@ class CustomCard extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue, // สีพื้นหลังของปุ่ม
+                          backgroundColor: Colors.blue,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                8.0), // เพิ่มมุมโค้งมนให้กับปุ่ม
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                         onPressed: () {
-                          onUpdate(); // เมื่อกดปุ่มจะเรียกฟังก์ชันนี้
+                          onUpdate();
                         },
                         child: Row(
-                          mainAxisSize:
-                              MainAxisSize.min, // ขนาดของ Row ให้พอดีกับเนื้อหา
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.edit, color: Colors.white), // ไอคอนลบ
-                            SizedBox(
-                                width: 8), // ระยะห่างระหว่างไอคอนและข้อความ
-                            Text('Edit'), // ข้อความ
+                            Icon(Icons.edit, color: Colors.white),
+                            SizedBox(width: 8),
+                            Text('Edit'),
                           ],
                         ),
                       ),
                       IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          // เปิดไดอะล็อกเพื่อถามยืนยันก่อนลบ
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -82,23 +77,21 @@ class CustomCard extends StatelessWidget {
                                 content: Text(
                                     'Are you sure you want to delete this item?'),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      20.0), // เพิ่มมุมโค้งมน
+                                  borderRadius:
+                                      BorderRadius.circular(20.0), // เ
                                 ),
                                 actions: <Widget>[
                                   TextButton(
                                     child: Text('Cancel'),
                                     onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(); // ปิดไดอะล็อก
+                                      Navigator.of(context).pop();
                                     },
                                   ),
                                   TextButton(
                                     child: Text('Delete'),
                                     onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(); // ปิดไดอะล็อกก่อนลบ
-                                      onDelete(); // เรียกฟังก์ชันลบ
+                                      Navigator.of(context).pop();
+                                      onDelete();
                                     },
                                   ),
                                 ],
@@ -144,7 +137,6 @@ class CustomCard extends StatelessWidget {
     }
     DateTime dateTime = DateTime.parse(dateString);
 
-    // กำหนดชื่อเดือนในภาษาอังกฤษ
     List<String> engMonths = [
       'January',
       'February',
@@ -160,5 +152,17 @@ class CustomCard extends StatelessWidget {
       'December'
     ];
     return '${dateTime.day} ${engMonths[dateTime.month - 1]} ${dateTime.year}';
+  }
+
+  String genderText(String code) {
+    String text = "";
+    if (code == "M") {
+      text = "Male";
+    } else if (text == "F") {
+      text = "Female";
+    } else {
+      text = "Not Specified";
+    }
+    return text;
   }
 }

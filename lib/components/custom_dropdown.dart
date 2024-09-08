@@ -15,6 +15,8 @@ class CustomDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? dropdownValue =
+        items.any((item) => item['key'] == value) ? value : null;
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Column(
@@ -36,16 +38,15 @@ class CustomDropdown extends StatelessWidget {
           Container(
             height: 48,
             child: DropdownButtonFormField<String>(
-              value: value,
+              value: dropdownValue,
               items: items
                   .map((item) => DropdownMenuItem<String>(
-                        value: item.keys.toString(),
-                        child: Text(item.values.toString()),
+                        value: item['key'],
+                        child: Text(item['value']!),
                       ))
                   .toList(),
               onChanged: onChanged,
               decoration: InputDecoration(
-                // labelText: labelText,
                 contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),

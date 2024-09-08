@@ -1,11 +1,11 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'dart:convert'; // For JSON decoding
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
   var cardList = <Map<String, dynamic>>[].obs;
-  final String baseUrl = dotenv.env['BASE_URL']!; // Read from .env
+  final String baseUrl = dotenv.env['BASE_URL']!;
 
   // ฟังก์ชันเพื่อดึงข้อมูลจาก API
   Future<void> updateData() async {
@@ -42,6 +42,6 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    updateData(); // เรียก updateData เมื่อ Controller ถูกสร้างขึ้น
+    updateData();
   }
 }
