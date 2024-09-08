@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+    container_name: MYORDER_MOBILE_BACKEND
+    working_dir: /home/node/app
+    environment:
+      NODE_ENV: development
+    ports:
+      # - 127.0.0.1:3001:3000
+      - 3101:3000
+    volumes:
+      - ./:/home/node/app
+    extra_hosts:
+    - 'host.docker.internal:host-gateway'
+    # command: sh -c "npm i && pm2 start src/server.js --node-args='--expose-gc --max-old-space-size=2048' && tail -f /dev/null"
+    command: sh -c "tail -f /dev/null"
+  
+  mysql:
+    image: mysql:8.0
+    container_name: MYORDER_MOBILE_MYSQL
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Vn40YnMMt6ruvY1
+    ports:
+      - 3102:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql

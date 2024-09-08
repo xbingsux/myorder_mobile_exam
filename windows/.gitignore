@@ -1,0 +1,85 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code related
+.vscode/
+
+# Flutter related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/ios/Flutter/App.framework
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/app.flx
+/ios/Flutter/app_framework_info.plist
+/ios/Flutter/engine/Flutter.framework
+/ios/Flutter/flutter_assets/
+/ios/ServiceDefinitions.json
+/ios/Runner/GeneratedPluginRegistrant.*
+
+# Android related
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Web related
+/web/manifest.json
+/web/index.html
+/web/.dart_tool/
+.webdev/
+
+# Generated files
+gen/
+*.dart.js
+*.js.deps
+*.js.map
+*.info.json
+
+# Obfuscation related
+app.*.map.json
+
+# Symbolication related
+app.*.symbols
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+ios/Flutter/App.framework
+ios/Flutter/app.flx
+ios/Flutter/engine/Flutter.framework
+ios/Flutter/flutter_assets/
+
+# Android Studio will place build artifacts here
+.android/
+/.idea/
+/android/.gradle/
+/android/.idea/
+/android/build/
+android/local.properties
+
+# Don't ignore .env file (ensure this is included if .env should not be ignored)
+# Uncomment the following line if you want to include the .env file
+# !.env
